@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hoa Tulip</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <!--Header-->
+    <nav class="navbar navbar-expand-lg bg-info">
+        <div class="container-md">
+            <div class="col-2">
+                <a class="navbar-brand" href="/trangchu.html">
+                    <img src="/image/logo.png" width="100%" >
+                </a>
+            </div>
+            <div class="col-5">
+                <form class="d-flex" role="search" action="./page/timkiem.html" method="get">
+                    <input class="form-control me-2" type="search" placeholder="Tìm kiếm hoa..." aria-label="Search" name="query">
+                    <button class="btn btn-primary" type="submit">Tìm</button>
+                </form>
+            </div>
+            <div class="col-auto">
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        <!-- Badge -->
+                        <li class="nav-item">
+                            <a class="nav-link me-3" href="giohang.html">
+                                <span id="cart-count" class="badge badge-pill bg-danger">0</span>
+                                <span id="cart-icon"><i class="fas fa-shopping-cart"></i></span>
+                                Giỏ hàng
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span><i class="fas fa-user"></i></span>Tài Khoản
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="dangky.html">Đăng ký</a></li>
+                                <li><a class="dropdown-item" href="dangnhap.html">Đăng nhập</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!--End of header-->
+    <!--Nav bar-->
+    <nav class="navbar navbar-expand-lg border-bottom bg-info-subtle mb-5" style="position: sticky; top: 0; z-index: 1;">
+        <div class="container-md">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/trangchu.html"><span><i class="fa fa-house me-1"></i></span>Trang chủ</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span><i class="fa fa-list me-1"></i></span>Danh mục
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="tatcasanpham.html">Tất Cả Sản Phẩm</a></li>
+                            <li><a class="dropdown-item" href="hoacuoi.html">Hoa Cưới</a></li>
+                            <li><a class="dropdown-item" href="hoasinhnhat.html">Hoa Sinh Nhật</a></li>
+                            <li><a class="dropdown-item" href="hoakhaitruong.html">Hoa Khai Trương</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gioithieu.html"><span><i class="fa fa-circle-info me-1"></i></span>Giới thiệu</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--End of bar-->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Sử dụng carousel thay vì hình ảnh đơn -->
+                <div id="hoaTulipCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="/image/hoa tulip.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/image/hoa tulip 1.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/image/hoa tulip 2.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/image/hoa tulip 3.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <!-- Thêm các ảnh khác vào đây tương tự -->
+                    </div>
+                    <!-- Nút điều hướng -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#hoaTulipCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#hoaTulipCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <br>
+                <h2>Hoa Tulip</h2>
+                <p>TÌNH TRẠNG: <span class="text-muted">CÒN HÀNG</span></p>
+                <div class="price">
+                    <span class="card-text my-3" style="font-size: 20px;">Giá Bán: </span>
+                    <span class="card-text my-3" style="font-size: 20px; color: red;"><b>1.000.000 VNĐ</b></span>
+                </div>   
+                <strong><br>Mô tả hoa Tulip</strong>
+                <p>
+                    Hoa TuLip mang trong mình ý nghĩa của "tình yêu hoàn hảo". Màu sắc này còn thể hiện niềm đam mê mãnh liệt và quyến rũ ngọt ngào. Vì thế, mỗi bông hoa tulip đỏ là một cách ngôn từ tinh tế để tỏ tình. Đối với những người đang yêu nhau, hoa tulip đỏ trở thành biểu tượng của tình yêu bền vững và thăng hoa.
+                </p>
+                <div class="input-group">
+                    <button type="button" class="btn btn-primary" onclick="increaseQuantity()">+</button>
+                    <input type="number" class="form-control" id="quantity" value="1" min="1" style="max-width: 60px; text-align: center;">
+                    <button type="button" class="btn btn-secondary" onclick="decreaseQuantity()">-</button>
+                </div>
+                <script>
+                    function increaseQuantity() {
+                        var quantityInput = document.getElementById('quantity');
+                        var currentValue = parseInt(quantityInput.value);
+                        quantityInput.value = currentValue + 1;
+                    }
+                
+                    function decreaseQuantity() {
+                        var quantityInput = document.getElementById('quantity');
+                        var currentValue = parseInt(quantityInput.value);
+                        if (currentValue > 1) {
+                            quantityInput.value = currentValue - 1;
+                        }
+                    }
+                </script>
+
+             
+                <br>
+                <div class="input-group">
+                    <button type="button" class="btn btn-primary btn-lg btn-equal" onclick="addToCart('Hoa Tulip', 1000000)">Thêm vào giỏ hàng</button>
+                </div>
+                <div class="mt-3">
+                    <a href="giohang.html">
+                        <button type="button" class="btn btn-success btn-lg btn-equal">Xem giỏ hàng</button>
+                    </a>
+                </div>         
+            </div>
+        </div>
+    </div>
+
+    <script>
+                                            
+        function addToCart(name, price) {
+            var product = {
+                name: name,
+                price: price,
+                quantity: parseInt(document.getElementById('quantity').value)
+            };
+
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+            var found = false;
+
+            for (var i = 0; i < cart.length; i++) {
+                if (cart[i].name === name) {
+                    cart[i].quantity += product.quantity;
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                cart.push(product);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert('Đã thêm sản phẩm vào giỏ hàng!');
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+            var totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cart-count').textContent = totalQuantity;
+        }
+
+        window.onload = function() {
+            updateCartCount();
+        };
+    </script>
+
+    
+    <!-- Footer -->
+    <footer class="text-center text-lg-start bg-body-tertiary text-muted">
+        <!-- Section: Social media -->
+        <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+        <!-- Left -->
+        <div class="me-5 d-none d-lg-block">
+            <span>Kết nối với chúng tôi qua các nền tảng MXH:</span>
+        </div>
+        <!-- Left -->
+    
+        <!-- Right -->
+        <div>
+            <a href="" class="me-4 text-reset">
+            <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+            <i class="fab fa-twitter"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+            <i class="fab fa-google"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+            <i class="fab fa-instagram"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+            <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+            <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <!-- Right -->
+        </section>
+        <!-- Section: Social media -->
+    
+        <!-- Section: Links  -->
+        <section class="">
+        <div class="container text-center text-md-start mt-5">
+            <!-- Grid row -->
+            <div class="row mt-3">
+            <!-- Grid column -->
+            <div class="col-4 mx-auto mb-4">
+                <!-- Links -->
+                <h6 class="text-uppercase fw-bold mb-4">
+                    Sản Phẩm
+                </h6>
+                <p>
+                    <a href="tatcasanpham.html" class="text-reset">Tất Cả Sản Phẩm</a>
+                </p>
+
+                <p>
+                    <a href="hoacuoi.html" class="text-reset">Hoa Cưới</a>
+                </p>
+
+                <p>
+                    <a href="hoasinhnhat.html" class="text-reset">Hoa Sinh Nhật</a>
+                </p>
+
+                <p>
+                    <a href="hoakhaitruong.html" class="text-reset">Hoa Khai Trương</a>
+                </p>
+            </div>
+            <div class="col-4 mx-auto mb-4">
+                <h6 class="text-uppercase fw-bold mb-4"><i class="far fa-clock"></i> Giờ làm việc</h3>
+                <p>Thứ 2 - Chủ Nhật, 10h00 - 22h00</br></p>   <br>
+                    <h6 class="text-uppercase fw-bold mb-4">Liên hệ</h6>
+                    <i class="fas fa-envelope me-3"></i>
+                    cuahanghoatuoi@gmail.com
+                    </p>
+                    <p><i class="fas fa-phone me-3"></i>0333888846</p>    
+                    <p><i class="fas fa-phone me-3"></i>0976255192</p> 
+                    <p><i class="fas fa-phone me-3"></i>0789583647</p> 
+            </div>
+            <div class="col-4 mx-auto mb-md-0 mb-4">
+                <h6 class="text-uppercase fw-bold mb-4">Địa Chỉ</h6>
+                <p><i class="fas fa-home me-3"></i>140 Lê Trọng Tấn, Tây Thạnh, Tân Phú, TPHCM<p>
+                <p><i class="fas fa-home me-3"></i>Cityland Phan Văn Trị, Phường 10, Gò Vấp, TPHCM<p>
+                <p><i class="fas fa-home me-3"></i>An Dương, Phường Yên Phụ, Quận Tây Hồ, Hà Nội<p>
+                <p><i class="fas fa-home me-3"></i>63 Lê Hồng Phong, Phước Ninh, Hải Châu, Đà Nẵng<p>
+                </p>
+            </div>
+        </div>
+        </section>
+    </footer>
+        <!-- Footer -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+</body>
+</html>

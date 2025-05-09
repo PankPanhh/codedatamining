@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Trang chủ</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link href="styles/trangchu.css" rel="stylesheet">
+        <style>
+            .items {
+                list-style: none;
+                padding: 0;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                justify-content: center;
+            }
+            .items li {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                transition: transform 0.3s, box-shadow 0.3s;
+            }
+            .items li:hover {
+                transform: scale(1.05);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+            .items li a {
+                margin-bottom: 10px;
+                text-decoration: none;
+                color: inherit;
+            }
+            .items li a img {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                transition: transform 0.3s;
+            }
+            .items li a:hover img {
+                transform: rotate(10deg);
+            }
+            .items li a span {
+                font-size: 18px;
+            }
+            /* Banner CSS */
+            .banner img {
+                width: 100%;
+                height: auto;
+                max-height: 400px;
+            }
+        </style>
+    
+    </head>
+    <body>
+        <!--Header-->
+        <nav class="navbar navbar-expand-lg bg-info">
+            <div class="container-md">
+                <div class="col-2">
+                    <a class="navbar-brand" href="trangchu.html">
+                        <img src="/image/logo.png" width="100%" >
+                    </a>
+                </div>
+                <div class="col-5">
+                    <form class="d-flex" role="search" action="./page/timkiem.html" method="get">
+                        <input class="form-control me-2" type="search" placeholder="Tìm kiếm hoa..." aria-label="Search" name="query">
+                        <button class="btn btn-primary" type="submit">Tìm</button>
+                    </form>
+                </div>
+                <div class="col-auto">
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav">
+                            <!-- Badge -->
+                            <li class="nav-item">
+                                <a class="nav-link me-3" href="/page/giohang.html">
+                                    <span id="cart-count" class="badge badge-pill bg-danger">0</span>
+                                    <span id="cart-icon"><i class="fas fa-shopping-cart"></i></span>
+                                    Giỏ hàng
+                                </a>
+                            </li>
+                            <!-- Thẻ li cho phần tài khoản -->
+                            <li class="nav-item dropdown" id="userAccount">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span><i class="fas fa-user"></i></span> Tài Khoản
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/page/dangky.html">Đăng ký</a></li>
+                                    <li><a class="dropdown-item" href="./page/dangnhap.html">Đăng nhập</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!--End of header-->
+        <!--Nav bar-->
+        <nav class="navbar navbar-expand-lg border-bottom bg-info-subtle mb-5" style="position: sticky; top: 0; z-index: 1;">
+            <div class="container-md">
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="trangchu.html"><span><i class="fa fa-house me-1"></i></span>Trang chủ</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span><i class="fa fa-list me-1"></i></span>Danh mục
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="./page/tatcasanpham.html">Tất Cả Sản Phẩm</a></li>
+                                <li><a class="dropdown-item" href="./page/hoacuoi.html">Hoa Cưới</a></li>
+                                <li><a class="dropdown-item" href="./page/hoasinhnhat.html">Hoa Sinh Nhật</a></li>
+                                <li><a class="dropdown-item" href="./page/hoakhaitruong.html">Hoa Khai Trương</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./page/gioithieu.html"><span><i class="fa fa-circle-info me-1"></i></span>Giới thiệu</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+             <!-- anh banner giới thiệu-->
+    <div class="d-flex justify-content-center my-4">
+        <img id="img" onclick="changeImage()" src="/image/banner1.jpg" alt="banner giới thiệu" class="img-fluid">
+    </div>
+    <script>
+        var index = 0;
+        function changeImage() {
+            var imgs = [
+                "image/banner2.jpg",
+                "image/banner.jpg"
+            ];
+            document.getElementById('img').src = imgs[index];
+            index++;
+            if (index >= imgs.length) {
+                index = 0;
+            }
+        }
+        setInterval(changeImage, 3000);
+    </script>
+
+    <!-- Shop Section -->
+    <div class="container">
+        <h2 class="text-center mb-4" style="color: red;">DANH SÁCH SẢN PHẨM</h2>
+        <ul class="items">
+            <li>
+                <a href="trangchu.html#hoaspnb" title="Sản Phẩm Nổi Bật">
+                    <img src="https://cdn.hoayeuthuong.com/images/icon-hoa-tinh-yeu.png" alt="Sản Phẩm Nổi Bật">
+                </a>
+                <a href="trangchu.html#hoaspnb" title="Sản Phẩm Nổi Bật">Sản Phẩm Nổi Bật</a>
+            </li>
+            <li>
+                <a href="trangchu.html#hoaspgg" title="Sản Phẩm Giảm Giá">
+                    <img src="https://cdn.hoayeuthuong.com/hinh-hoa-tuoi/hoa-khuyen-mai/14689_thuan-khiet.jpg" alt="Sản Phẩm Giảm Giá">
+                </a>
+                <a href="trangchu.html#hoaspgg" title="Sản Phẩm Giảm Giá">Sản Phẩm Giảm Giá</a>
+            </li>
+            <li>
+                <a href="trangchu.html#hoacuoi" title="Hoa Cưới">
+                    <img src="https://cdn.hoayeuthuong.com/hinh-hoa-tuoi/mau-hoa-moi/13302_gam-hoa.jpg" alt="Hoa Cưới">
+                </a>
+                <a href="trangchu.html#hoacuoi" title="Hoa Cưới">Hoa Cưới</a>
+            </li>
+            <li>
+                <a href="trangchu.html#hoasn" title="Hoa Sinh Nhật">
+                    <img src=https://cdn.hoayeuthuong.com/hinh-hoa-tuoi/thumb/hoa-sinh-nhat/13256_ang-may-hong.jpg alt="Hoa Sinh Nhật">
+                </a>
+                <a href="trangchu.html#hoasn" title="Hoa Sinh Nhật">Hoa Sinh Nhật</a>
+            </li>
+            <li>
+                <a href="trangchu.html#hoakt" title="Hoa Khai Trương">
+                    <img src="https://cdn.hoayeuthuong.com/images/icon-hoa-chuc-mung.png" alt="Hoa Khai Trương">
+                </a>
+                <a href="trangchu.html#hoakt" title="Hoa Khai Trương">Hoa Khai Trương</a>
+            </li>
+        </ul>
+    </div>
+
+        <br>
+        <h1 class="text-center">SẢN PHẨM NỔI BẬT</h1>
+        <div class="container-md" id="hoaspnb">
+            <div class="row row-cols-md-3 row-cols-sm-1 p-3">
+                <div class="col">
+                    <div class="card text-center">
+                        <img src="/image/hoa hong.jpg" class="card-img-top" alt="">
+                        <div class="card-body my-0">
+                            <h5 class="card-title">Hoa Hồng</h5>
+                            <div class="price">
+                                <span class="new-price" style="color: red;"><b>229.000 VND</b></span>
+                                <span class="old-price" style="color: rgb(170, 165, 165);"><del>250.000 VND</del></span>
+                            </div>   
+                            <div class="btn-group" role="group">
+                                <a href="./page/hoahong.html"><button type="button" class="btn btn-warning">Xem chi tiết</button></a>
+                                <a href="./page/giohang.html">                                
+                                    <button type="button" class="btn btn-success" onclick="addToCartAndRedirect('Hoa Hồng', 229000)">Mua Ngay</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card text-center">
+                        <img src="/image/hoa tulip.jpg" class="card-img-top" alt="">
+                        <div class="card-body my-0">
+                            <h5 class="card-title">Hoa Tulip</h5>
+                            <span class="card-text my-3">Giá bán: 1.000.000 VNĐ</span>
+                            <div class="btn-group" role="group">
+                                <a href="./page/hoatulip.html"><button type="button" class="btn btn-warning">Xem chi tiết</button></a>
+                                <a href="./page/giohang.html">                                
+                                    <button type="button" class="btn btn-success" onclick="addToCartAndRedirect('Hoa Tulip', 1000000)">Mua Ngay</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card text-center">
+                        <img src="/image/vali gio hoa sn dang hop.jpg" class="card-img-top" alt="">
+                        <div class="card-body my-0">
+                            <h5 class="card-title" style="font-size: 18px;">Hoa Sinh Nhật Dạng Hộp Mica</h5>
+                            <span class="card-text my-3">Giá bán: 1.200.000 VNĐ</span>
+                            <div class="btn-group" role="group">
+                                <a href="./page/hoasndangvalihop.html"><button type="button" class="btn btn-warning">Xem chi tiết</button></a>
+                                <a href="./page/giohang.html">                                
+                                    <button type="button" class="btn btn-success" onclick="addToCartAndRedirect('Hoa Sinh Nhật Dạng Hộp Mica', 1200000)">Mua Ngay</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <br>   
+        <h1 class="text-center">SẢN PHẨM GIẢM GIÁ</h1>
+        <div id="hoaspgg" class="container-md">
+            <div class="row row-cols-md-3 row-cols-sm-1 p-3">
+                <div class="col">
+                    <div class="card text-center">
+                        <img src="/image/hoa cam chuong.jpg" class="card-img-top" alt="">
+                        <div class="card-body my-0">
+                            <h5 class="card-title">Hoa Cẩm Chướng</h5>
+                            <div class="price">
+                                <span class="new-price" style="color: red;"><b>269.000 VND</b></span>
+                                <span class="old-price" style="color: rgb(170, 165, 165);"><del>300.000 VND</del></span>
+                            </div>        
+                            <div class="btn-group" role="group">
+                                <a href="./page/hoacamchuong.html"><button type="button" class="btn btn-warning">Xem chi tiết</button></a>
+                                <a href="./page/giohang.html">                                
+                                    <button type="button" class="btn btn-success" onclick="addToCartAndRedirect('Hoa Cẩm Chướng', 269000)">Mua Ngay</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card text-center">
+                        <img src="/image/hoa hong.jpg" class="card-img-top" alt="">
+                        <div class="card-body my-0">
+                            <h5 class="card-title">Hoa Hồng</h5>
+                            <div class="price">
+                                <span class="new-price" style="color: red;"><b>229.000 VND</b></span>
+                                <span class="old-price" style="color: rgb(170, 165, 165);"><del>250.000 VND</del></span>
+                            </div>     
+                            <div class="btn-group" role="group">
+                                <a href="./page/hoahong.html"><button type="button" class="btn btn-warning">Xem chi tiết</button></a>
+                                <a href="./page/giohang.html">                                
+                                    <button type="button" class="btn btn-success" onclick="addToCartAndRedirect('Hoa Hồng', 229000)">Mua Ngay</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card text-center">
+                        <img src="/image/hoa dong tien.jpg"class="card-img-top" alt="">
+                        <div class="card-body my-0">
+                            <h5 class="card-title">Hoa Đồng Tiền</h5>
+                            <div class="price">
+                                <span class="new-price" style="color: red;"><b>479.000 VND</b></span>
+                                <span class="old-price" style="color: rgb(170, 165, 165);"><del>500.000 VND</del></span>
+                            </div>     
+                            <div class="btn-group" role="group">
+                                <a href="./page/hoadongtien.html"><button type="button" class="btn btn-warning">Xem chi tiết</button></a>
+                                <a href="./page/giohang.html">                                
+                                    <button type="button" class="btn btn-success" onclick="addToCartAndRedirect('Hoa Đồng Tiền', 479000)">Mua Ngay</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+
+                <div class="col">
+                    <div class="card text-center">
+                        <br>
+                        <img src="/image/hoa sinh nhat dang hop giay.jpg"class="card-img-top" alt="">
+                        <div class="card-body my-0">
+                            <h5 class="card-title">Hoa Sinh Nhật Dạng Hộp Giấy</h5>
+                            <div class="price">
+                                <span class="new-price" style="color: red;"><b>545.000 VND</b></span>
+                                <span class="old-price" style="color: rgb(170, 165, 165);"><del>590.000 VND</del></span>
+                            </div>     
+                            <div class="btn-group" role="group">
+                                <a href="./page/hoasndanghopgiay.html"><button type="button" class="btn btn-warning">Xem chi tiết</button></a>
+                                <a href="./page/giohang.html">                                
+                                    <button type="button" class="btn btn-success" onclick="addToCartAndRedirect('Hoa Sinh Nhật Dạng Hộp Giấy', 545000)">Mua Ngay</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card text-center">
+                        <br>
+                        <img src="/image/hoa cuoi buoc loi.png"class="card-img-top" alt="">
+                        <div class="card-body my-0">
+                            <h5 class="card-title">Hoa Cưới Buộc Lơi Tự Nhiên</h5>
+                            <div class="price">
+                                <span class="new-price" style="color: red;"><b>450.000 VND</b></span>
+                                <span class="old-price" style="color: rgb(170, 165, 165);"><del>510.000 VND</del></span>
+                            </div>     
+                            <div class="btn-group" role="group">
+                                <a href="./page/hoacuoibuocloi.html"><button type="button" class="btn btn-warning">Xem chi tiết</button></a>
+                                <a href="./page/giohang.html">                                
+                                    <button type="button" class="btn btn-success" onclick="addToCartAndRedirect('Hoa Cưới Buộc Lơi Tự Nhiên', 450000)">Mua Ngay</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card text-center">
+                        <br>
+                        <img src="/image/hoa cuoi thac do.jpg"class="card-img-top" alt="">
+                        <div class="card-body my-0">
+                            <h5 class="card-title">Hoa Cưới Cầm Tay Dạng Thác Nước</h5>
+                            <div class="price">
+                                <span class="new-price" style="color: red;"><b>799.000 VND</b></span>
+                                <span class="old-price" style="color: rgb(170, 165, 165);"><del>850.000 VND</del></span>
+                            </div>     
+                            <div class="btn-group" role="group">
+                                <a href="./page/hoacuoithacdo.html"><button type="button" class="btn btn-warning">Xem chi tiết</button></a>
+                                <a href="./page/giohang.html">                                
+                                    <button type="button" class="btn btn-success" onclick="addToCartAndRedirect('Hoa Cưới Cầm Tay Dạng Thác Nước', 799000)">Mua Ngay</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <h1 class="text-center">HOA CƯỚI</h1>
+            <div id="hoacuoi" class="container-md">
+                <div class="row row-cols-md-3 row-cols-sm-1 p-3 mb-3">
+                    <div class="col mb-3">
+                        <div class="card text-center">
+                            <img src="/image/hoa cuoi dang tron.jpg" class="card-img-top" alt="">
+                            <div class="card-body my-0">
+                                <h5 class="card-title">Hoa Cưới Cầm Tay Dáng Tròn</h5>
+                                <span class="card-text my-3">Giá bán: 450.000 VNĐ</span>
+                                <div class="btn-group" role="group">
+                                    <a href="./page/hoacuoidangtron.html"><button type="button" class="btn btn-warning">Xem chi tiết</button></a>
+                                    <a href="./page/giohang.html">                                
+                                        <button type="button" class="btn btn-success" onclick="addToCartAndRedirect('Hoa Cưới Dáng Tròn', 450000)">Mua Ngay</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col mb-3">
+                        <div class="card text-center">
+                            <img src="/image/hoa cuoi dang dai.jpg" class="card-img-top" alt="">
+                            <div class="card-body my-0">
+                                <h5 class="card-title">Hoa Cưới Cầm Tay Dáng Dài </h5>
+                                <span  class="card-text my-3" style="color: red; font-size: 15px;"><b>HẾT HÀNG</b><br></span>
+                                <div class="btn-group" role="group">
+                                    <a href="./page/hoacuoidangdai.html"><button type="button" class="btn btn-warning">Xem chi tiết</button></a>                              
+                                    <button type="button" class="btn btn-success" onclick="addToCartOrNotify('Hoa Cưới Dáng Dài', 549000)">Mua Ngay</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col mb-3">
+                        <div class="card text-center">
+                            <img src="/image/hoa cuoi thac do.jpg"class="card-img-top" alt="">
+                            <div class="card-body my-0">
+                                <h5 class="card-title">Hoa Cưới Cầm Tay Dạng Thác Nước</h5>
+                                <div class="price">
+                                    <span class="new-price" style="color: red;"><b>799.000 VND</b></span>
+                                    <span class="old-price" style="color: rgb(170, 165, 165);"><del>850.000 VND</del></span>
+                                </div>     
+                                <div class="btn-group" role="group">
+                                    <a href="./page/hoacuoithacdo.html"><button type="button" class="btn btn-warning">Xem chi tiết</button></a>
+                                    <a href="./page/giohang.html">                                
+                                        <button type="button" class="btn btn-success" onclick="addToCartAndRedirect('Hoa Cưới Cầm Tay Dạng Thác Nước', 799000)">Mua Ngay</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>   
+
+            <br>
+            <h1 class="text-center">HOA SINH NHẬT</h1>
+            <div id="hoasn" class="container-md">
+                <div class="row row-cols-md-3 row-cols-sm-1 p-3">
+                    <div class="col col-md-4">
+                        <div class="card text-center">
+                            <img src="/image/hoa sinh nhat dang bo.jpg" class="card-img-top" alt="">
+                            <div class="card-body my-0">
+                                <h5 class="card-title">Hoa Sinh Nhật Dạng Bó</h5>
+                                <div class="price">
+                                    <span  class="card-text my-3">Giá bán: 510.000 VNĐ</span>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <a href="./page/hoasndangbo.html"><button type="button" class="btn btn-warning">Xem chi tiết</button></a>
+                                    <a href="./page/giohang.html"><button type="button" class="btn btn-success" onclick="addToCartAndRedirect('Hoa Sinh Nhật Dạng Bó', 150000)">Mua Ngay</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col col-md-4">
+                        <div class="card text-center">
+                            <img src="/image/hoa sinh nhat dang hop giay.jpg" class="card-img-top" alt="">
+                            <div class="card-body my-0">
+                                <h5 class="card-title">Hoa Sinh Nhật Dạng Hộp Giấy</h5>
+                                <div class="price">
+                                    <span class="new-price" style="color: red;"><b>545.000 VND</b></span>
+                                    <span class="old-price" style="color: rgb(170, 165, 165);"><del>590.000 VND</del></span>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <a href="./page/hoasndanghopgiay.html"><button type="button" class="btn btn-warning">Xem chi tiết</button></a>
+                                    <a href="./page/giohang.html"><button type="button" class="btn btn-success" onclick="addToCartAndRedirect('Hoa Sinh Nhật Dạng Hộp Giấy', 545000)">Mua Ngay</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                            
+
+                    <div class="col col-md-4">
+                        <div class="card text-center">
+                            <img src="/image/vali gio hoa sn dang hop.jpg" class="card-img-top" alt="">
+                            <div class="card-body my-0">
+                                <h5 class="card-title" style="font-size: 18px;">Hoa Sinh Nhật Dạng Kính Mica Kiểu Hộp</h5>
+                                <div class="price">
+                                    <span class="card-text my-3">Giá bán: 1.200.000 VNĐ</span>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <a href="./page/hoasndangvalihop.html"><button type="button" class="btn btn-warning">Xem chi tiết</button></a>
+                                    <a href="./page/giohang.html"><button type="button" class="btn btn-success" onclick="addToCartAndRedirect('Hoa Sinh Nhật Dạng Kính Mica Kiểu Hộp', 1200000)">Mua Ngay</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>                  
+                     
+            <br>
+            <h1 class="text-center">HOA KHAI TRƯƠNG</h1>
+            <div id="hoakt" class="container-md">
+                <div class="row row-cols-md-3 row-cols-sm-1 p-3">
+                    <div class="col">
+                        <div class="card text-center">
+                            <img src="/image/hoa khai truong cat tuong.jpg" class="card-img-top" alt="">
+                            <div class="card-body my-0">
+                                <h5 class="card-title">Hoa Khai Trương Cát Tường</h5>
+                                <span class="card-text my-3" style="color: red; font-size: 15px;"><b>HẾT HÀNG</b><br></span>
+                                <div class="btn-group" role="group">
+                                    <a href="./page/kehoakhaitruongcattuong.html"><button type="button" class="btn btn-warning">Xem chi tiết</button></a>                              
+                                    <button type="button" class="btn btn-success" onclick="addToCartOrNotify('Hoa Khai Trương Cát Tường', 800000)">Mua Ngay</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="col">
+                        <div class="card text-center">
+                            <img src="/image/hoa khai truong nhiet huyet.jpg" class="card-img-top" alt="">
+                            <div class="card-body my-0">
+                                <h5 class="card-title">Hoa Khai Trương Nhiệt Huyết</h5>
+                                <div class="price">
+                                    <span class="card-text my-3">Giá bán: 850.000 VNĐ</span>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <a href="./page/kehoakhaitruongnhiethuyet.html"><button type="button" class="btn btn-warning">Xem chi tiết</button></a>
+                                    <a href="./page/giohang.html"><button type="button" class="btn btn-success" onclick="addToCartAndRedirect('Hoa Khai Trương Nhiệt Huyết', 850000)">Mua Ngay</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="col">
+                        <div class="card text-center">
+                            <img src="/image/hoa khai truong hong phat.jpg" class="card-img-top" alt="">
+                            <div class="card-body my-0">
+                                <h5 class="card-title" style="font-size: 18px;">Hoa Khai Trương Hồng Phát</h5>
+                                <div class="price">
+                                    <span class="card-text my-3">Giá bán: 800.000 VNĐ</span>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <a href="./page/kehoakhaitruonghongphat.html"><button type="button" class="btn btn-warning">Xem chi tiết</button></a>
+                                    <a href="./page/giohang.html"><button type="button" class="btn btn-success" onclick="addToCartAndRedirect('Hoa Khai Trương Hồng Phát', 800000)">Mua Ngay</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>  
+            </div>                  
+        
+            <script>
+                function addToCartAndRedirect(name, price) {
+                    var product = {
+                        name: name,
+                        price: price,
+                        quantity: 1
+                    };
+        
+                    // Lấy danh sách sản phẩm đã lưu trong localStorage, nếu không có thì tạo một mảng rỗng
+                    var cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+                    // Thêm sản phẩm mới vào giỏ hàng
+                    cart.push(product);
+        
+                    // Lưu lại danh sách sản phẩm đã thêm vào localStorage
+                    localStorage.setItem('cart', JSON.stringify(cart));
+        
+                    // Chuyển hướng sang trang ./page/giohang.html
+                    window.location.href = './page/giohang.html';
+                }
+        
+                function addToCartOrNotify(name, price) {
+                    var product = {
+                        name: name,
+                        price: price,
+                        quantity: 1
+                    };
+        
+                    // Simulate product availability check
+                    var productAvailable = false; // Example: product is out of stock
+        
+                    if (productAvailable) {
+                        // Add to cart logic here (similar to what you have)
+                        addToCart(name, price);
+                    } else {
+                        // Show out of stock message
+                        alert('Sản phẩm đã hết hàng!');
+                    }
+                }
+        
+                // Function to add to cart (similar to your existing code)
+                function addToCart(name, price) {
+                    var product = {
+                        name: name,
+                        price: price,
+                        quantity: parseInt(document.getElementById('quantity').value)
+                    };
+        
+                    var cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    var found = false;
+        
+                    for (var i = 0; i < cart.length; i++) {
+                        if (cart[i].name === name) {
+                            cart[i].quantity += product.quantity;
+                            found = true;
+                            break;
+                        }
+                    }
+        
+                    if (!found) {
+                        cart.push(product);
+                    }
+    
+                }
+        
+                function updateCartCount() {
+                    var cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    var totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+                    document.getElementById('cart-count').textContent = totalQuantity;
+                }
+        
+                window.onload = function() {
+                    updateCartCount();
+                };
+            </script>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center text-lg-start bg-body-tertiary text-muted">
+            <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+            <div class="me-5 d-none d-lg-block">
+                <span>Kết nối với chúng tôi qua các nền tảng MXH:</span>
+            </div>
+
+            <div>
+                <a href="" class="me-4 text-reset">
+                <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                <i class="fab fa-twitter"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                <i class="fab fa-google"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                <i class="fab fa-instagram"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                <i class="fab fa-github"></i>
+                </a>
+            </div>
+            <!-- Right -->
+            </section>
+            <!-- Section: Social media -->
+            
+            <!-- Section: Links  -->
+            <section class="">
+            <div class="container text-center text-md-start mt-5">
+                <!-- Grid row -->
+                <div class="row mt-3">
+                <!-- Grid column -->
+                <div class="col-4 mx-auto mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold mb-4">
+                    Sản Phẩm
+                    </h6>
+                    <p>
+                        <a href="./page/tatcasanpham.html" class="text-reset">Tất Cả Sản Phẩm</a>
+                    </p>
+    
+                    <p>
+                        <a href="./page/hoacuoi.html" class="text-reset">Hoa Cưới</a>
+                    </p>
+    
+                    <p>
+                        <a href="./page/hoasinhnhat.html" class="text-reset">Hoa Sinh Nhật</a>
+                    </p>
+    
+                    <p>
+                        <a href="./page/hoakhaitruong.html" class="text-reset">Hoa Khai Trương</a>
+                    </p>
+                </div>
+                <div class="col-4 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4"><i class="far fa-clock"></i> Giờ làm việc</h3>
+                    <p>Thứ 2 - Chủ Nhật, 10h00 - 22h00</br></p>   <br>
+                        <h6 class="text-uppercase fw-bold mb-4">Liên hệ</h6>
+                        <i class="fas fa-envelope me-3"></i>
+                        cuahanghoatuoi@gmail.com
+                        </p>
+                        <p><i class="fas fa-phone me-3"></i>0333888846</p>    
+                        <p><i class="fas fa-phone me-3"></i>0976255192</p> 
+                        <p><i class="fas fa-phone me-3"></i>0789583647</p> 
+                </div>
+                <div class="col-4 mx-auto mb-md-0 mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Địa Chỉ</h6>
+                    <p><i class="fas fa-home me-3"></i>140 Lê Trọng Tấn, Tây Thạnh, Tân Phú, TPHCM<p>
+                    <p><i class="fas fa-home me-3"></i>Cityland Phan Văn Trị, Phường 10, Gò Vấp, TPHCM<p>
+                    <p><i class="fas fa-home me-3"></i>An Dương, Phường Yên Phụ, Quận Tây Hồ, Hà Nội<p>
+                    <p><i class="fas fa-home me-3"></i>63 Lê Hồng Phong, Phước Ninh, Hải Châu, Đà Nẵng<p>
+                    </p>
+                </div>
+                </div>
+            </div>
+            </section>
+        </footer>
+        <!-- Footer -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHBIothNzD4Pg8sZ0Iv6q3/kWtc/4+Jsax4Mv7fQiDFZ5og3+4TX" crossorigin="anonymous">
+        </script>
+        <!-- MDB -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js"></script>
+    </body>
+</html>
+
