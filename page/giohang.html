@@ -8,7 +8,6 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
     <style>
         .card-body {
             flex: 1;
@@ -71,17 +70,59 @@
         }
 
         .promo-suggestion {
-            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .promo-suggestion .card {
+            flex: 1;
+            margin: 0;
         }
 
         .promo-suggestion img {
-            max-width: 50px;
-            margin-right: 10px;
+            max-width: 100px;
+            margin: 0.2cm;
+            margin-left: 5cm;
+        }
+
+        .promo-suggestion .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0.5rem;
+        }
+
+        .promo-container {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .cart-line {
+            display: block;
+            width: 100%;
+        }
+
+        .total-price {
+            margin-top: 1rem;
+            text-align: right;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .discounted-price {
+            color: #ff6200;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <!--Header-->
     <nav class="navbar navbar-expand-lg bg-info">
         <div class="container-md">
             <div class="col-2">
@@ -107,7 +148,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span><i class="fas fa-user"></i></span> Tài Khoản
+                                <span><i class="fas fa-user"></i></span>Tài Khoản
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="dangky.html">Đăng ký</a></li>
@@ -119,19 +160,18 @@
             </div>
         </div>
     </nav>
-    <!-- End of header -->
-
-    <!-- Nav bar -->
+    <!--End of header-->
+    <!--Nav bar-->
     <nav class="navbar navbar-expand-lg border-bottom bg-info-subtle mb-5" style="position: sticky; top: 0; z-index: 1;">
         <div class="container-md">
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/trangchu.html"><span><i class="fa fa-house me-1"></i></span> Trang chủ</a>
+                        <a class="nav-link active" aria-current="page" href="/trangchu.html"><span><i class="fa fa-house me-1"></i></span>Trang chủ</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span><i class="fa fa-list me-1"></i></span> Danh mục
+                            <span><i class="fa fa-list me-1"></i></span>Danh mục
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="tatcasanpham.html">Tất Cả Sản Phẩm</a></li>
@@ -141,18 +181,23 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="gioithieu.html"><span><i class="fa fa-circle-info me-1"></i></span> Giới thiệu</a>
+                        <a class="nav-link" href="gioithieu.html"><span><i class="fa fa-circle-info me-1"></i></span>Giới thiệu</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <!-- End of nav bar -->
 
     <!-- Content -->
-    <div class="container-xl mt-5">
+    <div class="container-xl mt-5"> 
         <h2 class="text-center" style="font-size: 2.5rem"><b>Giỏ hàng</b></h2>
-        <div id="cart-container"></div>
+        <div id="cart-container">
+            <span class="cart-line" id="cart-items"></span>
+            <span class="cart-line" id="promo-items">
+                <h5 style="color: #ff6200; font-weight: bold;">Khuyến mãi</h5>
+                <div class="promo-container"></div>
+            </span>
+        </div>
         <div class="d-flex justify-content-end mt-4">
             <a href="#" id="checkout-button" onclick="checkout()" class="btn btn-success me-3 px-4" style="font-size: 1.2rem;">Thanh toán</a>
             <a href="/trangchu.html" id="continue-shopping" class="btn btn-primary px-4" style="font-size: 1.2rem;">Tiếp tục mua sắm</a>
@@ -168,7 +213,7 @@
         </div>
     </div>
     <br>
-
+    
     <!-- Footer -->
     <footer class="text-center text-lg-start bg-body-tertiary text-muted">
         <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
@@ -184,7 +229,8 @@
                 <a href="" class="me-4 text-reset"><i class="fab fa-github"></i></a>
             </div>
         </section>
-        <section>
+    
+        <section class="">
             <div class="container text-center text-md-start mt-5">
                 <div class="row mt-3">
                     <div class="col-4 mx-auto mb-4">
@@ -198,83 +244,76 @@
                         <h6 class="text-uppercase fw-bold mb-4"><i class="far fa-clock"></i> Giờ làm việc</h6>
                         <p>Thứ 2 - Chủ Nhật, 10h00 - 22h00</p>
                         <h6 class="text-uppercase fw-bold mb-4">Liên hệ</h6>
-                        <p><i class="fas fa-envelope me-3"></i> cuahanghoatuoi@gmail.com</p>
-                        <p><i class="fas fa-phone me-3"></i> 0333888846</p>
-                        <p><i class="fas fa-phone me-3"></i> 0976255192</p>
-                        <p><i class="fas fa-phone me-3"></i> 0789583647</p>
+                        <p><i class="fas fa-envelope me-3"></i>cuahanghoatuoi@gmail.com</p>
+                        <p><i class="fas fa-phone me-3"></i>0333888846</p>    
+                        <p><i class="fas fa-phone me-3"></i>0976255192</p> 
+                        <p><i class="fas fa-phone me-3"></i>0789583647</p> 
                     </div>
                     <div class="col-4 mx-auto mb-md-0 mb-4">
                         <h6 class="text-uppercase fw-bold mb-4">Địa Chỉ</h6>
-                        <p><i class="fas fa-home me-3"></i> 140 Lê Trọng Tấn, Tây Thạnh, Tân Phú, TPHCM</p>
-                        <p><i class="fas fa-home me-3"></i> Cityland Phan Văn Trị, Phường 10, Gò Vấp, TPHCM</p>
-                        <p><i class="fas fa-home me-3"></i> An Dương, Phường Yên Phụ, Quận Tây Hồ, Hà Nội</p>
-                        <p><i class="fas fa-home me-3"></i> 63 Lê Hồng Phong, Phước Ninh, Hải Châu, Đà Nẵng</p>
+                        <p><i class="fas fa-home me-3"></i>140 Lê Trọng Tấn, Tây Thạnh, Tân Phú, TPHCM</p>
+                        <p><i class="fas fa-home me-3"></i>Cityland Phan Văn Trị, Phường 10, Gò Vấp, TPHCM</p>
+                        <p><i class="fas fa-home me-3"></i>An Dương, Phường Yên Phụ, Quận Tây Hồ, Hà Nội</p>
+                        <p><i class="fas fa-home me-3"></i>63 Lê Hồng Phong, Phước Ninh, Hải Châu, Đà Nẵng</p>
                     </div>
                 </div>
             </div>
         </section>
     </footer>
-    <!-- End of footer -->
 
     <script>
-        // Danh sách sản phẩm đồng bộ với product_details từ file Python
-        const flowers = [
-            { name: "Hoa Hồng", image: "/image/hoa hong.jpg", price: 229000 },
-            { name: "Hoa Cẩm Chướng", image: "/image/hoa cam chuong.jpg", price: 269000 },
-            { name: "Hoa Sinh Nhật Dạng Hộp Giấy", image: "/image/hoa sinh nhat dang hop giay.jpg", price: 545000 },
-            { name: "Hoa Cưới Cầm Tay Dáng Tròn", image: "/image/hoa cuoi dang tron.jpg", price: 450000 },
-            { name: "Hoa Đồng Tiền", image: "/image/hoa dong tien.jpg", price: 479000 },
-            { name: "Hoa Khai Trương Hồng Phát", image: "/image/hoa khai truong hong phat.jpg", price: 800000 },
-            { name: "Hoa Tulip", image: "/image/hoa tulip.jpg", price: 1000000 },
-            { name: "Hoa Lan", image: "/image/hoa lan.jpg", price: 250000 },
-            { name: "Hoa Ly", image: "/image/hoa ly.jpg", price: 350000 },
-            { name: "Hoa Cẩm Tú Cầu", image: "/image/hoa cam tu cau.jpg", price: 950000 },
-            { name: "Hoa Baby Trắng", image: "/image/hoa baby trang.jpg", price: 500000 },
-            { name: "Hoa Khai Trương Nhiệt Huyết", image: "/image/hoa khai truong nhiet huyet.jpg", price: 850000 },
-            { name: "Hoa Khai Trương Cát Tường", image: "/image/hoa khai truong cat tuong.jpg", price: 800000 },
-            { name: "Hoa Cưới Cầm Tay Dáng Dài", image: "/image/hoa cuoi dang dai.jpg", price: 549000 },
-            { name: "Hoa Cưới Cầm Tay Dáng Thác Nước", image: "/image/hoa cuoi thac do.jpg", price: 799000 },
-            { name: "Hoa Cưới Buộc Lơi Tự Nhiên", image: "/image/hoa cuoi buoc loi.png", price: 450000 },
-            { name: "Hoa Sinh Nhật Dạng Bó", image: "/image/hoa sinh nhat dang bo.jpg", price: 510000 },
-            { name: "Hoa Sinh Nhật Dạng Hộp Mica", image: "/image/vali gio hoa sn dang hop.jpg", price: 1200000 },
-            { name: "Hoa Sinh Nhật Dạng Túi Mica", image: "/image/vali gio hoa sn dang tui deo.jpg", price: 999000 }
-        ];
-
-        // Tải danh sách combo từ combos.json
+        // Tải danh sách combo
         async function loadCombos() {
             try {
-                const response = await fetch('http://localhost:5000/combos');
+                const response = await fetch('/combos.json');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 window.combos = await response.json();
             } catch (error) {
                 console.error('Error loading combos:', error);
+                window.combos = [];
             }
         }
 
-        // Lấy thông tin chi tiết sản phẩm
+        function updateCartCount() {
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+            var cartCount = document.getElementById('cart-count');
+            var totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalQuantity;
+        }
+
+        const flowers = [
+            { name: 'Hoa Baby Trắng', image: '/image/hoa baby trang.jpg', price: 150000, detailPage: 'hoababyttrang.html' },
+            { name: 'Hoa Cẩm Chướng', image: '/image/hoa cam chuong.jpg', price: 269000, detailPage: 'hoacamchuong.html' },
+            { name: 'Hoa Cẩm Tú Cầu', image: '/image/hoa cam tu cau.jpg', price: 400000, detailPage: 'hoacamtucau.html' },
+            { name: 'Hoa Cưới Cầm Tay Dáng Dài', image: '/image/hoa cuoi dang dai.jpg', price: 549000, detailPage: 'hoacuoidangdai.html' },
+            { name: 'Hoa Cưới Cầm Tay Dáng Tròn', image: '/image/hoa cuoi dang tron.jpg', price: 450000, detailPage: 'hoacuoidangtron.html' },
+            { name: 'Hoa Cưới Cầm Tay Dạng Thác Nước', image: '/image/hoa cuoi thac do.jpg', price: 799000, detailPage: 'hoacuothacdo.html' },
+            { name: 'Hoa Cưới Buộc Lơi Tự Nhiên', image: '/image/hoa cuoi buoc loi.png', price: 450000, detailPage: 'hoacuoibuoctuoi.html' },
+            { name: 'Hoa Đồng Tiền', image: '/image/hoa dong tien.jpg', price: 479000, detailPage: 'hoadongtien.html' },
+            { name: 'Hoa Hồng', image: '/image/hoa hong 1.jpg', price: 229000, detailPage: 'hoahong.html' },
+            { name: 'Hoa Khai Trương Hồng Phát', image: '/image/hoa khai truong hong phat.jpg', price: 800000, detailPage: 'kehoakhaitruonghongphat.html' },
+            { name: 'Hoa Khai Trương Nhiệt Huyết', image: '/image/hoa khai truong nhiet huyet.jpg', price: 850000, detailPage: 'kehoakhaitruongnhietthuyet.html' },
+            { name: 'Hoa Khai Trương Cát Tường', image: '/image/hoa khai truong cat tuong.jpg', price: 800000, detailPage: 'kehoakhaitruongcattuong.html' },
+            { name: 'Hoa Lan', image: '/image/hoa lan.jpg', price: 300000, detailPage: 'hoalan.html' },
+            { name: 'Hoa Ly', image: '/image/hoa ly.jpg', price: 350000, detailPage: 'hoaly.html' },
+            { name: 'Hoa Sinh Nhật Dạng Bó', image: '/image/hoa sinh nhat dang bo.jpg', price: 510000, detailPage: 'hoasndangbo.html' },
+            { name: 'Hoa Sinh Nhật Dạng Hộp Giấy', image: '/image/hoa sinh nhat dang hop giay.jpg', price: 545000, detailPage: 'hoasndanghopgiay.html' },
+            { name: 'Hoa Sinh Nhật Dạng Hộp Mica', image: '/image/vali gio hoa sn dang hop.jpg', price: 1200000, detailPage: 'hoasndangvalihop.html' },
+            { name: 'Hoa Sinh Nhật Dạng Túi Mica', image: '/image/vali gio hoa sn dang tui deo.jpg', price: 1000000, detailPage: 'hoasndangvalituoi.html' },
+            { name: 'Hoa Tulip', image: '/image/hoa tulip.jpg', price: 1000000, detailPage: 'hoatulip.html' },
+        ];
+
         function getFlowerDetails(flowerName) {
             return flowers.find(flower => flower.name === flowerName) || {};
         }
 
-        // Thêm sản phẩm vào giỏ hàng
-        function addToCart(name, price) {
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const existingItemIndex = cart.findIndex(item => item.name === name);
-
-            if (existingItemIndex !== -1) {
-                cart[existingItemIndex].quantity += 1;
-            } else {
-                cart.push({ name: name, price: price, quantity: 1 });
-            }
-
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartDisplay();
-            updateCartCount();
+        function getDetailLink(flowerName) {
+            const flower = getFlowerDetails(flowerName);
+            return flower.detailPage ? `page/${flower.detailPage}` : 'page/tatcasanpham.html';
         }
 
-        // Thêm sản phẩm từ gợi ý combo
         function addToCartFromPromo(missingItem) {
             const flower = getFlowerDetails(missingItem);
             if (!flower.price) {
@@ -315,33 +354,27 @@
 
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartDisplay();
-            updateCartCount();
+            loadRecommendations(); // Cập nhật gợi ý sau khi thêm sản phẩm
         }
 
-        // Cập nhật số lượng sản phẩm trên biểu tượng giỏ hàng
-        function updateCartCount() {
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            let cartCount = document.getElementById('cart-count');
-            let totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
-            cartCount.textContent = totalQuantity;
-        }
-
-        // Hiển thị giỏ hàng
         function updateCartDisplay() {
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            let cartContainer = document.getElementById('cart-container');
-            let cartCount = document.getElementById('cart-count');
-            let checkoutButton = document.getElementById('checkout-button');
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+            var cartItemsContainer = document.getElementById('cart-items');
+            var promoContainer = document.getElementById('promo-items').querySelector('.promo-container');
+            var cartCount = document.getElementById('cart-count');
+            var checkoutButton = document.getElementById('checkout-button');
 
-            cartContainer.innerHTML = '';
+            cartItemsContainer.innerHTML = '';
+            promoContainer.innerHTML = '';
 
             if (cart.length === 0) {
-                cartContainer.innerHTML = '<p>Giỏ hàng của bạn đang trống.</p>';
+                cartItemsContainer.innerHTML = '<p>Giỏ hàng của bạn đang trống.</p>';
                 cartCount.textContent = '0';
                 checkoutButton.textContent = 'Vui lòng thêm sản phẩm vào giỏ hàng';
                 checkoutButton.classList.remove('btn-success');
                 checkoutButton.classList.add('btn-secondary');
                 document.getElementById('continue-shopping').style.display = 'none';
+                loadRecommendations(); // Tải gợi ý mặc dù giỏ hàng rỗng
                 return;
             }
 
@@ -373,52 +406,78 @@
                         </div>
                     </div>
                 `;
-
-                // Kiểm tra combo khuyến mãi
-                if (!item.name.startsWith('Combo:') && window.combos) {
-                    for (const combo of window.combos) {
-                        if (combo.items.includes(item.name)) {
-                            const missingItems = combo.items.filter(i => i !== item.name);
-                            if (missingItems.length === 1) {
-                                const discountPercent = ((combo.original_price - combo.discounted_price) / combo.original_price * 100).toFixed(0);
-                                const missingItemDetails = getFlowerDetails(missingItems[0]);
-                                const promoDiv = document.createElement('div');
-                                promoDiv.className = 'promo-suggestion mt-2 p-2 border rounded';
-                                promoDiv.style.borderColor = '#ff6200';
-                                promoDiv.style.backgroundColor = '#fff';
-                                promoDiv.innerHTML = `
-                                    <h6 style="color: #ff6200; font-weight: bold;">Khuyến mãi</h6>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="d-flex align-items-center">
-                                            <img src="${missingItemDetails.image || ''}" alt="${missingItems[0]}" />
-                                            <span style="font-size: 14px;">
-                                                Mua thêm <b>${missingItems[0]}</b> để được giảm <b>${discountPercent}%</b>!
-                                            </span>
-                                        </div>
-                                        <button class="btn btn-sm text-white" style="background-color: #ff6200;" onclick="addToCartFromPromo('${missingItems[0]}')">Thêm vào giỏ hàng</button>
-                                    </div>
-                                `;
-                                cartItem.appendChild(promoDiv);
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                cartContainer.appendChild(cartItem);
+                cartItemsContainer.appendChild(cartItem);
             });
 
+            // Thêm tổng cộng
             const totalPrice = document.createElement('p');
+            totalPrice.className = 'total-price';
             totalPrice.innerHTML = `<strong>Tổng cộng: ${total.toLocaleString()} VND</strong>`;
-            totalPrice.classList.add('text-end', 'fs-4');
-            cartContainer.appendChild(totalPrice);
+            cartItemsContainer.appendChild(totalPrice);
+
+            // Kiểm tra và hiển thị các khuyến mãi
+            if (window.combos) {
+                const cartItemNames = cart.map(item => item.name);
+                const applicablePromos = [];
+
+                window.combos.forEach(combo => {
+                    if (!cartItemNames.some(item => item.startsWith('Combo:')) && combo.items.some(item => cartItemNames.includes(item))) {
+                        const missingItems = combo.items.filter(item => !cartItemNames.includes(item));
+                        if (missingItems.length === 1) {
+                            const missingItemDetails = getFlowerDetails(missingItems[0]);
+                            applicablePromos.push({
+                                missingItem: missingItems[0],
+                                originalPrice: combo.original_price,
+                                discountedPrice: combo.discounted_price,
+                                image: missingItemDetails.image || ''
+                            });
+                        }
+                    }
+                });
+
+                if (applicablePromos.length === 0) {
+                    promoContainer.innerHTML = '<p>Không có khuyến mãi nào áp dụng.</p>';
+                } else {
+                    applicablePromos.forEach(promo => {
+                        const detailLink = getDetailLink(promo.missingItem);
+                        const promoDiv = document.createElement('div');
+                        promoDiv.className = 'promo-suggestion';
+                        promoDiv.innerHTML = `
+                            <div class="card mb-3">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <img src="${promo.image}" class="img-fluid rounded-start" alt="${promo.missingItem}">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body d-flex flex-column justify-content-between">
+                                            <div>
+                                                <h5 class="card-title" style="font-size: 1.8rem">${promo.missingItem}</h5>
+                                                <p class="card-text original-price" style="font-size: 1rem">Giá gốc: ${promo.originalPrice.toLocaleString()} VND</p>
+                                                <p class="card-text discounted-price" style="font-size: 1rem">Giá combo: ${promo.discountedPrice.toLocaleString()} VND</p>
+                                            </div>
+                                            <div class="d-flex gap-2">
+                                                <a href="${detailLink}" class="btn btn-outline-primary">Xem chi tiết</a>
+                                                <button class="btn btn-success" onclick="addToCartFromPromo('${promo.missingItem}')">Thêm vào giỏ hàng</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        promoContainer.appendChild(promoDiv);
+                    });
+                }
+            } else {
+                promoContainer.innerHTML = '<p>Đang tải khuyến mãi...</p>';
+            }
+
             cartCount.textContent = cart.reduce((count, item) => count + item.quantity, 0);
             document.getElementById('continue-shopping').style.display = 'inline-block';
+            loadRecommendations(); // Cập nhật gợi ý sau khi hiển thị giỏ hàng
         }
 
-        // Cập nhật số lượng sản phẩm
         function updateQuantity(index, change) {
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
             if (cart[index].quantity + change > 0) {
                 cart[index].quantity += change;
             } else {
@@ -426,21 +485,19 @@
             }
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartDisplay();
-            updateCartCount();
+            loadRecommendations(); // Cập nhật gợi ý sau khi thay đổi số lượng
         }
 
-        // Xóa sản phẩm khỏi giỏ hàng
         function removeItem(index) {
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
             cart.splice(index, 1);
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartDisplay();
-            updateCartCount();
+            loadRecommendations(); // Cập nhật gợi ý sau khi xóa sản phẩm
         }
 
-        // Chuyển hướng đến trang thanh toán
         function checkout() {
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
             if (cart.length === 0) {
                 alert('Vui lòng thêm sản phẩm vào giỏ hàng trước khi thanh toán.');
                 return;
@@ -448,16 +505,16 @@
             window.location.href = 'thanhtoan.html';
         }
 
-        // Khởi tạo khi trang tải
         document.addEventListener('DOMContentLoaded', async () => {
             await loadCombos();
             updateCartDisplay();
             updateCartCount();
+            loadRecommendations(); // Tải gợi ý khi trang khởi tạo
         });
     </script>
 
     <script src="/recommend.js"></script>
-    <script src="/giohang.js"></script>
+    <script></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
             crossorigin="anonymous"></script>
