@@ -1,0 +1,38 @@
+[
+    {
+        "items": [
+            "Hoa Cưới Cầm Tay Dáng Tròn",
+            "Hoa Khai Trương Hồng Phát"
+        ],
+        "original_price": 1250000,
+        "discounted_price": 1125000.0,
+        "support": 0.2
+    },
+    {
+        "items": [
+            "Hoa Hồng",
+            "Hoa Cẩm Chướng"
+        ],
+        "original_price": 498000,
+        "discounted_price": 448200.0,
+        "support": 0.2
+    },
+    {
+        "items": [
+            "Hoa Cẩm Chướng",
+            "Hoa Sinh Nhật Dạng Hộp Giấy"
+        ],
+        "original_price": 814000,
+        "discounted_price": 732600.0,
+        "support": 0.2
+    },
+    {
+        "items": [
+            "Hoa Tulip",
+            "Hoa Hồng"
+        ],
+        "original_price": 1229000,
+        "discounted_price": 1106100.0,
+        "support": 0.3
+    }
+]
