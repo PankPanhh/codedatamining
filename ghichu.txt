@@ -1,0 +1,7 @@
+Coi này đi
+
+
+Có nên yêu cầu sản phẩm trong giỏ hàng?:
+Không cần thiết: Combos thường là các gói khuyến mãi cố định, được hiển thị để thu hút người dùng bất kể giỏ hàng có sản phẩm hay không. Điều này phù hợp với mục đích tiếp thị (ví dụ: hiển thị các combo phổ biến ngay trên trang chủ).
+Tùy chọn nâng cao: Nếu bạn muốn cá nhân hóa combos dựa trên giỏ hàng (ví dụ: chỉ hiển thị combo chứa sản phẩm liên quan đến giỏ hàng), bạn có thể sửa endpoint /combos để nhận tham số từ giỏ hàng và lọc combo. Tuy nhiên, điều này phức tạp hơn và có thể không cần thiết nếu mục tiêu là hiển thị các combo cố định.
+Kết luận: Giữ nguyên logic hiện tại của /combos (không yêu cầu sản phẩm trong giỏ hàng) là phù hợp, vì nó đơn giản và hiệu quả cho mục đích khuyến mãi chung.
