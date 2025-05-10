@@ -9,6 +9,7 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
     <style>
         .card-body {
             flex: 1;
@@ -123,17 +124,12 @@
     </style>
 </head>
 <body>
-<<<<<<< HEAD
-    <!--Header-->
-    <nav class="navbar navbar-expand-lg bg-info">
-=======
      <!--Header-->
      <nav class="navbar navbar-expand-lg bg-info">
->>>>>>> 10bf62b7349dbbd2172c54992770bd674a8510dd
         <div class="container-md">
             <div class="col-2">
                 <a class="navbar-brand" href="/trangchu.html">
-                    <img src="//image/logo.png" width="100%" >
+                    <img src="/image/logo.png" width="100%" >
                 </a>
             </div>
             <div class="col-5">
@@ -249,34 +245,6 @@
         </section>
     
         <section class="">
-<<<<<<< HEAD
-            <div class="container text-center text-md-start mt-5">
-                <div class="row mt-3">
-                    <div class="col-4 mx-auto mb-4">
-                        <h6 class="text-uppercase fw-bold mb-4">Sản Phẩm</h6>
-                        <p><a href="tatcasanpham.html" class="text-reset">Tất Cả Sản Phẩm</a></p>
-                        <p><a href="hoacuoi.html" class="text-reset">Hoa Cưới</a></p>
-                        <p><a href="hoasinhnhat.html" class="text-reset">Hoa Sinh Nhật</a></p>
-                        <p><a href="hoakhaitruong.html" class="text-reset">Hoa Khai Trương</a></p>
-                    </div>
-                    <div class="col-4 mx-auto mb-4">
-                        <h6 class="text-uppercase fw-bold mb-4"><i class="far fa-clock"></i> Giờ làm việc</h6>
-                        <p>Thứ 2 - Chủ Nhật, 10h00 - 22h00</p>
-                        <h6 class="text-uppercase fw-bold mb-4">Liên hệ</h6>
-                        <p><i class="fas fa-envelope me-3"></i>cuahanghoatuoi@gmail.com</p>
-                        <p><i class="fas fa-phone me-3"></i>0333888846</p>    
-                        <p><i class="fas fa-phone me-3"></i>0976255192</p> 
-                        <p><i class="fas fa-phone me-3"></i>0789583647</p> 
-                    </div>
-                    <div class="col-4 mx-auto mb-md-0 mb-4">
-                        <h6 class="text-uppercase fw-bold mb-4">Địa Chỉ</h6>
-                        <p><i class="fas fa-home me-3"></i>140 Lê Trọng Tấn, Tây Thạnh, Tân Phú, TPHCM</p>
-                        <p><i class="fas fa-home me-3"></i>Cityland Phan Văn Trị, Phường 10, Gò Vấp, TPHCM</p>
-                        <p><i class="fas fa-home me-3"></i>An Dương, Phường Yên Phụ, Quận Tây Hồ, Hà Nội</p>
-                        <p><i class="fas fa-home me-3"></i>63 Lê Hồng Phong, Phước Ninh, Hải Châu, Đà Nẵng</p>
-                    </div>
-                </div>
-=======
         <div class="container text-center text-md-start mt-5">
             <div class="row mt-3">
             <div class="col-4 mx-auto mb-4">
@@ -295,7 +263,6 @@
                 <p>
                     <a href="hoakhaitruong.html" class="text-reset">Hoa Khai Trương</a>
                 </p>
->>>>>>> 10bf62b7349dbbd2172c54992770bd674a8510dd
             </div>
             <div class="col-4 mx-auto mb-4">
                 <h6 class="text-uppercase fw-bold mb-4"><i class="far fa-clock"></i> Giờ làm việc</h3>
@@ -332,7 +299,6 @@
                 window.combos = await response.json();
             } catch (error) {
                 console.error('Error loading combos:', error);
-                window.combos = [];
             }
         }
 
@@ -416,10 +382,6 @@
 
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartDisplay();
-<<<<<<< HEAD
-            loadRecommendations(); // Cập nhật gợi ý sau khi thêm sản phẩm
-=======
->>>>>>> 10bf62b7349dbbd2172c54992770bd674a8510dd
         }
 
         function updateCartDisplay() {
@@ -439,7 +401,6 @@
                 checkoutButton.classList.remove('btn-success');
                 checkoutButton.classList.add('btn-secondary');
                 document.getElementById('continue-shopping').style.display = 'none';
-                loadRecommendations(); // Tải gợi ý mặc dù giỏ hàng rỗng
                 return;
             }
 
@@ -538,7 +499,6 @@
 
             cartCount.textContent = cart.reduce((count, item) => count + item.quantity, 0);
             document.getElementById('continue-shopping').style.display = 'inline-block';
-            loadRecommendations(); // Cập nhật gợi ý sau khi hiển thị giỏ hàng
         }
 
         function updateQuantity(index, change) {
@@ -550,10 +510,6 @@
             }
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartDisplay();
-<<<<<<< HEAD
-            loadRecommendations(); // Cập nhật gợi ý sau khi thay đổi số lượng
-=======
->>>>>>> 10bf62b7349dbbd2172c54992770bd674a8510dd
         }
 
         function removeItem(index) {
@@ -561,10 +517,6 @@
             cart.splice(index, 1);
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartDisplay();
-<<<<<<< HEAD
-            loadRecommendations(); // Cập nhật gợi ý sau khi xóa sản phẩm
-=======
->>>>>>> 10bf62b7349dbbd2172c54992770bd674a8510dd
         }
 
         function checkout() {
@@ -580,18 +532,9 @@
             await loadCombos();
             updateCartDisplay();
             updateCartCount();
-            loadRecommendations(); // Tải gợi ý khi trang khởi tạo
         });
     </script>
-
-<<<<<<< HEAD
     <script src="/recommend.js"></script>
-    <script></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
-            crossorigin="anonymous"></script>
-=======
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
->>>>>>> 10bf62b7349dbbd2172c54992770bd674a8510dd
 </body>
 </html>
