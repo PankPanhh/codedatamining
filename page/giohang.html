@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <!-- change 2 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giỏ hàng</title>
@@ -71,36 +70,6 @@
             font-size: 1rem;
         }
 
-        .promo-suggestion {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 1rem;
-        }
-
-        .promo-suggestion .card {
-            flex: 1;
-            margin: 0;
-        }
-
-        .promo-suggestion img {
-            max-width: 100px;
-            margin: 0.2cm;
-            margin-left: 5cm;
-        }
-
-        .promo-suggestion .card-body {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 0.5rem;
-        }
-
-        .promo-container {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
         .cart-line {
             display: block;
             width: 100%;
@@ -109,17 +78,6 @@
         .total-price {
             margin-top: 1rem;
             text-align: right;
-        }
-
-        .original-price {
-            text-decoration: line-through;
-            color: #888;
-            font-size: 0.9rem;
-        }
-
-        .discounted-price {
-            color: #ff6200;
-            font-weight: bold;
         }
     </style>
 </head>
@@ -195,10 +153,6 @@
         <h2 class="text-center" style="font-size: 2.5rem"><b>Giỏ hàng</b></h2>
         <div id="cart-container">
             <span class="cart-line" id="cart-items"></span>
-            <span class="cart-line" id="promo-items">
-                <h5 style="color: #ff6200; font-weight: bold;">Khuyến mãi</h5>
-                <div class="promo-container"></div>
-            </span>
         </div>
         <div class="d-flex justify-content-end mt-4">
             <a href="#" id="checkout-button" onclick="checkout()" class="btn btn-success me-3 px-4" style="font-size: 1.2rem;">Thanh toán</a>
@@ -289,19 +243,6 @@
     </footer>
 
     <script>
-        // Tải danh sách combo
-        async function loadCombos() {
-            try {
-                const response = await fetch('/combos.json');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                window.combos = await response.json();
-            } catch (error) {
-                console.error('Error loading combos:', error);
-            }
-        }
-
         function updateCartCount() {
             var cart = JSON.parse(localStorage.getItem('cart')) || [];
             var cartCount = document.getElementById('cart-count');
@@ -313,7 +254,7 @@
             { name: 'Hoa Baby Trắng', image: '/image/hoa baby trang.jpg', price: 150000, detailPage: 'hoababyttrang.html' },
             { name: 'Hoa Cẩm Chướng', image: '/image/hoa cam chuong.jpg', price: 269000, detailPage: 'hoacamchuong.html' },
             { name: 'Hoa Cẩm Tú Cầu', image: '/image/hoa cam tu cau.jpg', price: 400000, detailPage: 'hoacamtucau.html' },
-            { name: 'Hoa Cưới Cầm Tay Dáng Dài', image: '/image/hoa cuoi dang dai.jpg', price: 549000, detailPage: 'hoacuoidangdai.html' },
+            { name: 'Hoa Cưới Cầm Tay Dáng Dài', image: '/image/hoa cuoi dang dai.jpg', giá: 549000, detailPage: 'hoacuoidangdai.html' },
             { name: 'Hoa Cưới Cầm Tay Dáng Tròn', image: '/image/hoa cuoi dang tron.jpg', price: 450000, detailPage: 'hoacuoidangtron.html' },
             { name: 'Hoa Cưới Cầm Tay Dạng Thác Nước', image: '/image/hoa cuoi thac do.jpg', price: 799000, detailPage: 'hoacuothacdo.html' },
             { name: 'Hoa Cưới Buộc Lơi Tự Nhiên', image: '/image/hoa cuoi buoc loi.png', price: 450000, detailPage: 'hoacuoibuoctuoi.html' },
@@ -356,30 +297,6 @@
                 cart.push({ name: missingItem, price: flower.price, quantity: 1 });
             }
 
-            // Kiểm tra và áp dụng combo
-            const cartItems = cart.map(item => item.name).flat();
-            let appliedCombo = null;
-            if (window.combos) {
-                for (const combo of window.combos) {
-                    if (combo.items.every(item => cartItems.includes(item))) {
-                        appliedCombo = combo;
-                        break;
-                    }
-                }
-            }
-
-            if (appliedCombo) {
-                // Xóa các sản phẩm riêng lẻ thuộc combo
-                cart = cart.filter(item => !appliedCombo.items.includes(item.name));
-                // Thêm combo vào giỏ hàng
-                cart.push({
-                    name: `Combo: ${appliedCombo.items.join(' + ')}`,
-                    price: appliedCombo.discounted_price,
-                    quantity: 1
-                });
-                alert(`Đã áp dụng combo: ${appliedCombo.items.join(' + ')} với giá ${appliedCombo.discounted_price.toLocaleString()} VNĐ!`);
-            }
-
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartDisplay();
         }
@@ -387,12 +304,10 @@
         function updateCartDisplay() {
             var cart = JSON.parse(localStorage.getItem('cart')) || [];
             var cartItemsContainer = document.getElementById('cart-items');
-            var promoContainer = document.getElementById('promo-items').querySelector('.promo-container');
             var cartCount = document.getElementById('cart-count');
             var checkoutButton = document.getElementById('checkout-button');
 
             cartItemsContainer.innerHTML = '';
-            promoContainer.innerHTML = '';
 
             if (cart.length === 0) {
                 cartItemsContainer.innerHTML = '<p>Giỏ hàng của bạn đang trống.</p>';
@@ -435,67 +350,10 @@
                 cartItemsContainer.appendChild(cartItem);
             });
 
-            // Thêm tổng cộng
             const totalPrice = document.createElement('p');
             totalPrice.className = 'total-price';
             totalPrice.innerHTML = `<strong>Tổng cộng: ${total.toLocaleString()} VND</strong>`;
             cartItemsContainer.appendChild(totalPrice);
-
-            // Kiểm tra và hiển thị các khuyến mãi
-            if (window.combos) {
-                const cartItemNames = cart.map(item => item.name);
-                const applicablePromos = [];
-
-                window.combos.forEach(combo => {
-                    if (!cartItemNames.some(item => item.startsWith('Combo:')) && combo.items.some(item => cartItemNames.includes(item))) {
-                        const missingItems = combo.items.filter(item => !cartItemNames.includes(item));
-                        if (missingItems.length === 1) {
-                            const missingItemDetails = getFlowerDetails(missingItems[0]);
-                            applicablePromos.push({
-                                missingItem: missingItems[0],
-                                originalPrice: combo.original_price,
-                                discountedPrice: combo.discounted_price,
-                                image: missingItemDetails.image || ''
-                            });
-                        }
-                    }
-                });
-
-                if (applicablePromos.length === 0) {
-                    promoContainer.innerHTML = '<p>Không có khuyến mãi nào áp dụng.</p>';
-                } else {
-                    applicablePromos.forEach(promo => {
-                        const detailLink = getDetailLink(promo.missingItem);
-                        const promoDiv = document.createElement('div');
-                        promoDiv.className = 'promo-suggestion';
-                        promoDiv.innerHTML = `
-                            <div class="card mb-3">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
-                                        <img src="${promo.image}" class="img-fluid rounded-start" alt="${promo.missingItem}">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body d-flex flex-column justify-content-between">
-                                            <div>
-                                                <h5 class="card-title" style="font-size: 1.8rem">${promo.missingItem}</h5>
-                                                <p class="card-text original-price" style="font-size: 1rem">Giá gốc: ${promo.originalPrice.toLocaleString()} VND</p>
-                                                <p class="card-text discounted-price" style="font-size: 1rem">Giá combo: ${promo.discountedPrice.toLocaleString()} VND</p>
-                                            </div>
-                                            <div class="d-flex gap-2">
-                                                <a href="${detailLink}" class="btn btn-outline-primary">Xem chi tiết</a>
-                                                <button class="btn btn-success" onclick="addToCartFromPromo('${promo.missingItem}')">Thêm vào giỏ hàng</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        promoContainer.appendChild(promoDiv);
-                    });
-                }
-            } else {
-                promoContainer.innerHTML = '<p>Đang tải khuyến mãi...</p>';
-            }
 
             cartCount.textContent = cart.reduce((count, item) => count + item.quantity, 0);
             document.getElementById('continue-shopping').style.display = 'inline-block';
@@ -528,8 +386,7 @@
             window.location.href = 'thanhtoan.html';
         }
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            await loadCombos();
+        document.addEventListener('DOMContentLoaded', () => {
             updateCartDisplay();
             updateCartCount();
         });

@@ -1,95 +1,36 @@
 async function loadCombos() {
     try {
-        const response = await fetch('/combos.json');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        const response = await fetch('http://localhost:5000/combos');
+        const combos = await response.json();
+        const combosContainer = document.getElementById('combos');
+        combosContainer.innerHTML = '';
+
+        if (combos.length === 0) {
+            combosContainer.innerHTML = '<p class="text-center text-gray-500">Không có combo nào.</p>';
+            return;
         }
-        window.combos = await response.json();
-    } catch (error) {
-        console.error('Error loading combos:', error);
-    }
-}
 
-function loadCart() {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const cartItems = document.getElementById('cart-items');
-    if (!cartItems) return;
-
-    cartItems.innerHTML = '';
-    let total = 0;
-
-    cart.forEach((item, index) => {
-        const itemName = item.name.replace('Combo: ', '');
-        const itemTotal = item.price * item.quantity;
-        total += itemTotal;
-
-        const itemDiv = document.createElement('div');
-        itemDiv.className = 'cart-item mb-3 p-3 border rounded';
-        itemDiv.innerHTML = `
-            <div class="d-flex justify-content-between align-items-center">
-                <span>${itemName} x${item.quantity}</span>
-                <span>${itemTotal.toLocaleString()} VNĐ</span>
-            </div>
-            <div class="d-flex justify-content-between align-items-center mt-2">
-                <div class="btn-group">
-                    <button class="btn btn-sm btn-secondary" onclick="updateQuantity(${index}, -1)">-</button>
-                    <span class="mx-2">${item.quantity}</span>
-                    <button class="btn btn-sm btn-secondary" onclick="updateQuantity(${index}, 1)">+</button>
+        combos.forEach(combo => {
+            const comboCard = document.createElement('div');
+            comboCard.className = 'combo-card bg-white p-4 rounded-lg shadow-md flex';
+            comboCard.innerHTML = `
+                <div class="content flex-1 pr-4">
+                    <h3 class="text-lg font-semibold mb-2">Combo: ${combo.items.join(', ')}</h3>
+                    <p class="text-gray-600">Giá gốc: ${combo.original_price.toLocaleString()} VNĐ</p>
+                    <p class="text-green-600 font-bold">Giá chiết khấu: ${combo.discounted_price.toLocaleString()} VNĐ</p>
+                    <p class="text-gray-500">Hỗ trợ: ${(combo.support * 100).toFixed(2)}%</p>
                 </div>
-                <button class="btn btn-danger btn-sm" onclick="removeItem(${index})">Xóa</button>
-            </div>
-        `;
-
-        // Kiểm tra combo khuyến mãi
-        if (!itemName.startsWith('Combo:') && window.combos) {
-            for (const combo of window.combos) {
-                if (combo.items.includes(itemName)) {
-                    const missingItems = combo.items.filter(i => i !== itemName);
-                    if (missingItems.length === 1) {
-                        const discountPercent = ((combo.original_price - combo.discounted_price) / combo.original_price * 100).toFixed(0);
-                        const promoDiv = document.createElement('div');
-                        promoDiv.className = 'promo-suggestion mt-2 p-2 border rounded';
-                        promoDiv.style.borderColor = '#ff6200';
-                        promoDiv.style.backgroundColor = '#fff';
-                        promoDiv.innerHTML = `
-                            <h6 style="color: #ff6200; font-weight: bold;">Khuyến mãi</h6>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span style="font-size: 14px;">
-                                    Mua thêm <b>${missingItems[0]}</b> để được giảm <b>${discountPercent}%</b>!
-                                </span>
-                                <a href="./page/tatcasanpham.html" class="btn btn-sm text-white" style="background-color: #ff6200;">Xem thêm</a>
-                            </div>
-                        `;
-                        itemDiv.appendChild(promoDiv);
-                        break;
-                    }
-                }
-            }
-        }
-
-        cartItems.appendChild(itemDiv);
-    });
-
-    document.getElementById('total-price').textContent = total.toLocaleString() + ' VNĐ';
-}
-
-function updateQuantity(index, change) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    if (cart[index].quantity + change > 0) {
-        cart[index].quantity += change;
-        localStorage.setItem('cart', JSON.stringify(cart));
+                <div class="images flex flex-col gap-2">
+                    ${combo.images.map(img => `<img src="${img}" alt="Combo item" class="w-32 h-32 object-cover rounded-md">`).join('')}
+                </div>
+            `;
+            combosContainer.appendChild(comboCard);
+        });
+    } catch (error) {
+        console.error('Lỗi khi lấy combo:', error);
+        document.getElementById('combos').innerHTML = 
+            '<p class="text-center text-red-500">Lỗi khi tải combo.</p>';
     }
-    loadCart();
 }
 
-function removeItem(index) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.splice(index, 1);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    loadCart();
-}
-
-window.onload = async function() {
-    await loadCombos();
-    loadCart();
-};
+window.onload = loadCombos;

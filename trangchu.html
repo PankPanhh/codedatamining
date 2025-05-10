@@ -9,7 +9,6 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link href="styles/trangchu.css" rel="stylesheet">
     <style>
         .items {
             list-style: none;
@@ -218,16 +217,63 @@
         </div>
     </div>
 
-    <!-- Recommendations Section -->
-    <br>
-    <h1 class="text-center">SẢN PHẨM GỢI Ý</h1>
-    <div class="container-md" id="recommendations">
-        <div class="row row-cols-md-3 row-cols-sm-1 p-3" id="recommendation-list">
-            <!-- Recommendations will be dynamically added here -->
-        </div>
+    <div class="container mx-auto p-4">
+    <!-- Phần combo khuyến mãi -->
+    <h1 class="text-3xl font-bold mb-4 text-center">Combo khuyến mãi</h1>
+    <div id="combos" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <!-- Combo sẽ được thêm vào đây -->
     </div>
+</div>
 
-    <br>
+<style>
+    .combo-card {
+        transition: transform 0.2s;
+        display: flex;
+        align-items: center;
+        background: white;
+        padding: 16px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .combo-card:hover {
+        transform: scale(1.05);
+    }
+    .combo-card .content {
+        flex: 1;
+        padding-right: 16px;
+    }
+    .combo-card .images {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .combo-card img {
+        width: 128px; /* 32rem = 128px */
+        height: 128px;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    @media (max-width: 640px) {
+        .combo-card {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .combo-card .content {
+            padding-right: 0;
+            margin-bottom: 8px;
+        }
+        .combo-card .images {
+            flex-direction: row;
+            gap: 8px;
+        }
+        .combo-card img {
+            width: 100px;
+            height: 100px;
+        }
+    }
+</style>
+
     <h1 class="text-center">SẢN PHẨM GIẢM GIÁ</h1>
     <div id="hoaspgg" class="container-md">
         <div class="row row-cols-md-3 row-cols-sm-1 p-3">
@@ -549,7 +595,6 @@
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js"></script>
-        <script src="/recommend.js"></script>
         <script>
             var index = 0;
             function changeImage() {
@@ -622,5 +667,6 @@
                 updateCartCount();
             };
         </script>
+        <script src="./giohang.js"></script>
 </body>
 </html>

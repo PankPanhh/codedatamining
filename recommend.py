@@ -2,20 +2,14 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import numpy as np
 from itertools import combinations
-import pandas as pd
-from mlxtend.frequent_patterns import apriori
-from mlxtend.preprocessing import TransactionEncoder
-import json
 import sys
 import io
-import uuid
 
 # Set stdout encoding to UTF-8 to handle Vietnamese characters
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 app = Flask(__name__)
-# Allow all origins for development
-CORS(app)  # Thay vì giới hạn origins, cho phép tất cả
+CORS(app)  # Allow all origins for development
 
 # Transaction data for recommendation
 transactions_1 = [
@@ -85,6 +79,14 @@ for i, transaction in enumerate(transactions_1):
     for item in transaction:
         bit_table_1[i, item_to_index_1[item]] = 1
 
+# Prepare data for combos (bitTableFI)
+items_2 = sorted(set(item for transaction in transactions_2 for item in transaction))
+item_to_index_2 = {item: idx for idx, item in enumerate(items_2)}
+bit_table_2 = np.zeros((len(transactions_2), len(items_2)), dtype=int)
+for i, transaction in enumerate(transactions_2):
+    for item in transaction:
+        bit_table_2[i, item_to_index_2[item]] = 1
+
 # Find frequent itemsets using bitTableFI
 def find_frequent_itemsets(bit_table, items, min_support):
     try:
@@ -118,7 +120,7 @@ def find_frequent_itemsets(bit_table, items, min_support):
         return []
 
 # Generate association rules
-def generate_association_rules(frequent_itemsets, min_confidence):
+def generate_association_rules(frequent_itemsets, min_confidence, bit_table, items, transactions):
     try:
         rules = []
         for itemset in frequent_itemsets:
@@ -128,12 +130,12 @@ def generate_association_rules(frequent_itemsets, min_confidence):
                 for antecedent in combinations(itemset, i):
                     antecedent = set(antecedent)
                     consequent = set(itemset) - antecedent
-                    antecedent_bit = np.ones(len(transactions_1), dtype=int)
+                    antecedent_bit = np.ones(len(transactions), dtype=int)
                     for item in antecedent:
-                        antecedent_bit = antecedent_bit & bit_table_1[:, item_to_index_1[item]]
-                    itemset_bit = np.ones(len(transactions_1), dtype=int)
+                        antecedent_bit = antecedent_bit & bit_table[:, item_to_index_2[item] if bit_table is bit_table_2 else item_to_index_1[item]]
+                    itemset_bit = np.ones(len(transactions), dtype=int)
                     for item in itemset:
-                        itemset_bit = itemset_bit & bit_table_1[:, item_to_index_1[item]]
+                        itemset_bit = itemset_bit & bit_table[:, item_to_index_2[item] if bit_table is bit_table_2 else item_to_index_1[item]]
                     support_antecedent = np.sum(antecedent_bit)
                     support_itemset = np.sum(itemset_bit)
                     if support_antecedent > 0:
@@ -155,7 +157,7 @@ def recommend():
         min_support = 0.1
         min_confidence = 0.2
         frequent_itemsets = find_frequent_itemsets(bit_table_1, items_1, min_support)
-        rules = generate_association_rules(frequent_itemsets, min_confidence)
+        rules = generate_association_rules(frequent_itemsets, min_confidence, bit_table_1, items_1, transactions_1)
         recommendations = []
         for antecedent, consequent, confidence in rules:
             if item in antecedent:
@@ -171,43 +173,36 @@ def recommend():
         print(f"Error in recommend endpoint: {str(e)}")
         return jsonify({"error": "Internal server error"}), 500
 
-# Generate promotional combos using Apriori
-def generate_promotional_combos():
+# API endpoint to get promotional combos using bitTableFI
+@app.route('/combos', methods=['GET'])
+def get_combos():
     try:
-        te = TransactionEncoder()
-        te_ary = te.fit(transactions_2).transform(transactions_2)
-        df = pd.DataFrame(te_ary, columns=te.columns_)
-        frequent_itemsets = apriori(df, min_support=0.2, use_colnames=True)
+        min_support = 0.2
+        min_confidence = 0.2
+        frequent_itemsets = find_frequent_itemsets(bit_table_2, items_2, min_support)
         combos = []
-        for _, row in frequent_itemsets.iterrows():
-            if len(row['itemsets']) > 1:
-                items = list(row['itemsets'])
+        for itemset in frequent_itemsets:
+            if len(itemset) > 1:
+                items = list(itemset)
                 total_price = sum(product_details[item]["price"] for item in items)
                 discounted_price = total_price * 0.9
+                bit_vector = bit_table_2[:, item_to_index_2[items[0]]]
+                for item in items[1:]:
+                    bit_vector = bit_vector & bit_table_2[:, item_to_index_2[item]]
+                support = np.sum(bit_vector) / len(transactions_2)
+                # Lấy danh sách hình ảnh (tối đa 2 ảnh)
+                images = [product_details[item]["image"] for item in items[:2]]
                 combos.append({
                     'items': items,
                     'original_price': total_price,
                     'discounted_price': discounted_price,
-                    'support': row['support']
+                    'support': support,
+                    'images': images
                 })
-        with open('combos.json', 'w', encoding='utf-8') as f:
-            json.dump(combos, f, ensure_ascii=False, indent=4)
-        return combos
-    except Exception as e:
-        print(f"Error in generate_promotional_combos: {str(e)}")
-        return []
-
-# API endpoint to get promotional combos
-@app.route('/combos', methods=['GET'])
-def get_combos():
-    try:
-        combos = generate_promotional_combos()
         return jsonify(combos)
     except Exception as e:
         print(f"Error in combos endpoint: {str(e)}")
         return jsonify({"error": "Internal server error"}), 500
 
 if __name__ == '__main__':
-    # Generate combos when starting the server
-    generate_promotional_combos()
     app.run(debug=True, port=5000)
