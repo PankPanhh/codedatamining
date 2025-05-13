@@ -663,39 +663,6 @@
             }
         }
 
-        // Load substitutes or recommendations using /recommend endpoint
-        function loadSubstitutes(name, button) {
-            fetch(`http://127.0.0.1:5000/recommend?item=${encodeURIComponent(name)}`)
-                .then(response => response.json())
-                .then(data => {
-                    const container = document.getElementById(`substitute-${name}`);
-                    if (!container) return;
-
-                    container.innerHTML = ''; // Clear previous content
-                    const message = document.createElement('div');
-                    message.className = 'out-of-stock-message';
-                    message.textContent = 'Sản phẩm đã hết hàng, vui lòng chọn sản phẩm thay thế bên dưới';
-                    container.appendChild(message);
-
-                    data.forEach(item => {
-                        const card = document.createElement('div');
-                        card.className = 'card substitute-card text-center';
-                        card.innerHTML = `
-                            <img src="${item.image}" class="card-img-top" alt="${item.name}">
-                            <div class="card-body">
-                                <h6 class="card-title">${item.name}</h6>
-                                <p class="card-text">Giá: ${item.price.toLocaleString()} VNĐ</p>
-                                <button type="button" class="btn btn-success btn-sm" onclick="addToCartAndRedirect('${item.name}', ${item.price})">Mua Ngay</button>
-                            </div>
-                        `;
-                        container.appendChild(card);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching substitutes:', error);
-                    alert('Không thể tải gợi ý thay thế. Vui lòng thử lại sau.');
-                });
-        }
 
         // Add to cart and redirect to cart page
         function addToCartAndRedirect(name, price) {
@@ -784,5 +751,6 @@
             loadCombos();
         };
     </script>
+    <script src="./substitute.js"></script>
 </body>
 </html>

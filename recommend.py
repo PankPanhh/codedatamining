@@ -48,6 +48,43 @@ transactions_2 = [
     ['Hoa Cưới Cầm Tay Dáng Tròn', 'Hoa Khai Trương Hồng Phát']
 ]
 
+
+
+# Transaction data for substitute recommendations (expanded for better coverage)
+transactions_3 = [
+    ["Hoa Hồng", "Hoa Sinh Nhật Dạng Hộp Giấy"],
+    ["Hoa Hồng", "Hoa Cẩm Chướng"],
+    ["Hoa Cẩm Chướng", "Hoa Sinh Nhật Dạng Hộp Giấy"],
+    ["Hoa Hồng", "Hoa Cưới Cầm Tay Dáng Tròn"],
+    ["Hoa Sinh Nhật Dạng Hộp Giấy", "Hoa Cẩm Chướng", "Hoa Đồng Tiền"],
+    ["Hoa Cưới Cầm Tay Dáng Tròn", "Hoa Khai Trương Hồng Phát"],
+    ["Hoa Hồng", "Hoa Đồng Tiền"],
+    ["Hoa Cẩm Chướng", "Hoa Khai Trương Hồng Phát"],
+    ["Hoa Hồng", "Hoa Cẩm Chướng", "Hoa Đồng Tiền"],
+    ["Hoa Hồng", "Hoa Sinh Nhật Dạng Hộp Giấy"],
+    ["Hoa Hồng", "Hoa Cưới Cầm Tay Dáng Tròn"],
+    ["Hoa Tulip", "Hoa Ly"],
+    ["Hoa Tulip", "Hoa Cưới Buộc Lơi Tự Nhiên"],
+    ["Hoa Tulip", "Hoa Khai Trương Nhiệt Huyết"],
+    ["Hoa Tulip", "Hoa Cưới Cầm Tay Dáng Dài"],
+    ["Hoa Tulip", "Hoa Cẩm Chướng"],
+    ["Hoa Tulip", "Hoa Cẩm Chướng", "Hoa Cưới Buộc Lơi Tự Nhiên"],
+    ["Hoa Tulip", "Hoa Cẩm Chướng", "Hoa Ly"],
+    ["Hoa Tulip", "Hoa Cưới Cầm Tay Dáng Tròn"],
+    # Additional transactions to improve coverage
+    ["Hoa Cưới Cầm Tay Dáng Dài", "Hoa Cưới Cầm Tay Dáng Tròn", "Hoa Cưới Buộc Lơi Tự Nhiên"],
+    ["Hoa Cưới Cầm Tay Dáng Dài", "Hoa Cưới Cầm Tay Dạng Thác Nước"],
+    ["Hoa Cưới Cầm Tay Dáng Dài", "Hoa Baby Trắng"],
+    ["Hoa Khai Trương Cát Tường", "Hoa Khai Trương Hồng Phát", "Hoa Khai Trương Nhiệt Huyết"],
+    ["Hoa Khai Trương Cát Tường", "Hoa Cẩm Chướng"],
+    ["Hoa Khai Trương Cát Tường", "Hoa Hồng"],
+    ["Hoa Sinh Nhật Dạng Bó", "Hoa Sinh Nhật Dạng Hộp Giấy", "Hoa Sinh Nhật Dạng Hộp Mica"],
+    ["Hoa Sinh Nhật Dạng Hộp Mica", "Hoa Sinh Nhật Dạng Túi Mica"],
+    ["Hoa Lan", "Hoa Ly", "Hoa Cẩm Tú Cầu"],
+    ["Hoa Baby Trắng", "Hoa Cưới Cầm Tay Dáng Tròn"],
+]
+
+
 # Product details with availability and category
 product_details = {
     "Hoa Hồng": {"price": 229000, "image": "/image/hoa hong.jpg", "is_available": True, "category": "Hoa Sinh Nhật"},
@@ -86,6 +123,14 @@ bit_table_2 = np.zeros((len(transactions_2), len(items_2)), dtype=int)
 for i, transaction in enumerate(transactions_2):
     for item in transaction:
         bit_table_2[i, item_to_index_2[item]] = 1
+
+# Prepare data for substitute (bitTableFI)
+items_3 = sorted(set(item for transaction in transactions_3 for item in transaction))
+item_to_index_3 = {item: idx for idx, item in enumerate(items_3)}
+bit_table_3 = np.zeros((len(transactions_3), len(items_3)), dtype=int)
+for i, transaction in enumerate(transactions_3):
+    for item in transaction:
+        bit_table_3[i, item_to_index_3[item]] = 1
 
 # Find frequent itemsets using bitTableFI
 def find_frequent_itemsets(bit_table, items, min_support):
@@ -204,7 +249,8 @@ def get_combos():
         print(f"Error in combos endpoint: {str(e)}")
         return jsonify({"error": "Internal server error"}), 500
 
-# API endpoint to get substitute products with fallback using BitTable FI
+
+# API endpoint to get substitute products with fallback using BitTableFI
 @app.route('/substitute', methods=['GET'])
 def substitute():
     try:
@@ -216,8 +262,8 @@ def substitute():
         
         min_support = 0.05
         min_confidence = 0.1
-        frequent_itemsets = find_frequent_itemsets(bit_table_1, items_1, min_support)
-        rules = generate_association_rules(frequent_itemsets, min_confidence, bit_table_1, items_1, transactions_1, item_to_index_1)
+        frequent_itemsets = find_frequent_itemsets(bit_table_3, items_3, min_support)
+        rules = generate_association_rules(frequent_itemsets, min_confidence, bit_table_3, items_3, transactions_3, item_to_index_3)
         
         substitutes = []
         for antecedent, consequent, confidence in rules:
