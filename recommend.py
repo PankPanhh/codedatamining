@@ -34,13 +34,12 @@ transactions_1 = [
     ["Hoa Tulip", "Hoa Cẩm Chướng", "Hoa Ly"],
     ["Hoa Tulip", "Hoa Cưới Cầm Tay Dáng Tròn"],
 
-    ["Hoa Sinh Nhật Dạng Hộp Mica", "Hoa Sinh Nhật Dạng Hộp Giấy", "Hoa Sinh Nhật Dạng Túi Mica"],  # Liên kết với giao dịch mẫu
-    ["Hoa Sinh Nhật Dạng Hộp Mica", "Hoa Sinh Nhật Dạng Túi Mica"],  # Giá gần, cùng danh mục
-    ["Hoa Sinh Nhật Dạng Hộp Mica", "Hoa Tulip"],                  # Giá gần, cùng danh mục
-    ["Hoa Sinh Nhật Dạng Hộp Mica", "Hoa Cẩm Tú Cầu"],            # Giá gần, cùng danh mục
-    ["Hoa Sinh Nhật Dạng Hộp Mica", "Hoa Sinh Nhật Dạng Hộp Giấy", "Hoa Sinh Nhật Dạng Túi Mica"],  # Liên kết với giao dịch mẫu
-    ["Hoa Sinh Nhật Dạng Túi Mica", "Hoa Sinh Nhật Dạng Hộp Mica"],  # Tăng support cho cặp phổ biến
-    ["Hoa Cẩm Tú Cầu", "Hoa Sinh Nhật Dạng Hộp Mica", "Hoa Tulip"]   # Tăng support cho các sản phẩm giá cao
+    # ["Hoa Sinh Nhật Dạng Hộp Mica", "Hoa Sinh Nhật Dạng Hộp Giấy", "Hoa Sinh Nhật Dạng Túi Mica"],  # Liên kết với giao dịch mẫu
+    # ["Hoa Sinh Nhật Dạng Hộp Mica", "Hoa Sinh Nhật Dạng Túi Mica"],  # Giá gần, cùng danh mục
+    # ["Hoa Sinh Nhật Dạng Hộp Mica", "Hoa Tulip"],                  # Giá gần, cùng danh mục
+    # ["Hoa Sinh Nhật Dạng Hộp Mica", "Hoa Sinh Nhật Dạng Hộp Giấy", "Hoa Sinh Nhật Dạng Túi Mica"],  # Liên kết với giao dịch mẫu
+    # ["Hoa Sinh Nhật Dạng Túi Mica", "Hoa Sinh Nhật Dạng Hộp Mica"],  # Tăng support cho cặp phổ biến
+    # ["Hoa Cẩm Tú Cầu", "Hoa Sinh Nhật Dạng Hộp Mica", "Hoa Tulip"]   # Tăng support cho các sản phẩm giá cao
 ]
 
 # Transaction data for combos

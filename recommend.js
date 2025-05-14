@@ -60,10 +60,9 @@ document.addEventListener('DOMContentLoaded', function() {
                                   <span class="new-price" style="color: red;"><b>${item.price.toLocaleString('vi-VN')} VND</b></span>
                               </div>
                               <div class="btn-group" role="group">
-                                  <a href="./page/${item.detailPage || item.name.toLowerCase().replace(/\s+/g, '')}.html"><button type="button" class="btn btn-warning">Xem chi tiết</button></a>
-                                  <a href="./page/giohang.html">
-                                      <button type="button" class="btn btn-success" onclick="addToCartAndRedirect('${item.name}', ${item.price})">Mua Ngay</button>
-                                  </a>
+                                <a href="/page/giohang.html">
+                                    <button type="button" class="btn btn-success" onclick="addToCartAndRedirect('${item.name}', ${item.price})">Thêm vào giỏ hàng</button>
+                                </a>
                               </div>
                           </div>
                       </div>
